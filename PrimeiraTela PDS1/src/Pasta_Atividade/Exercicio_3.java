@@ -1,13 +1,11 @@
 package Pasta_Atividade;
 
-import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 
-import Model.ConverterTemperatura;
+
 import Model.Retangulo;
 
 import javax.swing.JLabel;

@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import Model.Calculo_4;
 
+import Model.Calculo_5;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,16 +18,12 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Exercicio_4 extends JFrame {
+public class Exercicio_5 extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtpreco;
-	private JLabel lblvalor;
+	private JTextField txtpeso;
 	private JTextField txtvalor;
-	private JButton btncalcular;
-	private JButton btnlimpar;
-	private JButton btnfechar;
 
 	/**
 	 * Launch the application.
@@ -36,7 +32,7 @@ public class Exercicio_4 extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Exercicio_4 frame = new Exercicio_4();
+					Exercicio_5 frame = new Exercicio_5();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -48,7 +44,7 @@ public class Exercicio_4 extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Exercicio_4() {
+	public Exercicio_5() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -57,69 +53,68 @@ public class Exercicio_4 extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblpreco = new JLabel("Preço do Litro da Gasolina");
-		lblpreco.setFont(new Font("Arial", Font.BOLD, 12));
-		lblpreco.setBounds(35, 57, 169, 13);
-		contentPane.add(lblpreco);
+		JLabel lblpeso = new JLabel("Peso do Prato");
+		lblpeso.setFont(new Font("Arial", Font.BOLD, 13));
+		lblpeso.setBounds(72, 43, 105, 13);
+		contentPane.add(lblpeso);
 		
-		txtpreco = new JTextField();
-		txtpreco.setBounds(214, 50, 190, 27);
-		contentPane.add(txtpreco);
-		txtpreco.setColumns(10);
+		txtpeso = new JTextField();
+		txtpeso.setFont(new Font("Arial", Font.PLAIN, 13));
+		txtpeso.setBounds(187, 35, 183, 29);
+		contentPane.add(txtpeso);
+		txtpeso.setColumns(10);
 		
-		lblvalor = new JLabel("Valor Final do Pagamento");
-		lblvalor.setFont(new Font("Arial", Font.BOLD, 12));
-		lblvalor.setBounds(35, 113, 148, 13);
-		contentPane.add(lblvalor);
+		JLabel lblvalor_quilo = new JLabel("Valor do Quilo");
+		lblvalor_quilo.setFont(new Font("Arial", Font.BOLD, 13));
+		lblvalor_quilo.setBounds(72, 100, 99, 13);
+		contentPane.add(lblvalor_quilo);
 		
 		txtvalor = new JTextField();
-		txtvalor.setBounds(214, 106, 190, 27);
+		txtvalor.setFont(new Font("Arial", Font.PLAIN, 13));
+		txtvalor.setBounds(187, 92, 183, 29);
 		contentPane.add(txtvalor);
 		txtvalor.setColumns(10);
 		
-		btncalcular = new JButton("CALCULAR");
+		JButton btncalcular = new JButton("CALCULAR");
 		btncalcular.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String preco = txtpreco.getText();
-				Double  precoD = Double.valueOf(preco);	
+				String peso = txtpeso.getText();
+				Double  pesoD = Double.valueOf(peso);	
 				String valor = txtvalor.getText(); 
 				Double valorD = Double.valueOf(valor);
-	
 				
-		     	Calculo_4 calc = new Calculo_4();
-				Double litros = calc.calculoGasolina(precoD, valorD);
-				JOptionPane.showMessageDialog(null, "Você pode comprar " + litros + " litros de gasolina.");
-				
-				
+				Calculo_5 calculo = new Calculo_5();
+				Double valor_total = calculo.valor_total(pesoD, valorD);
+				JOptionPane.showMessageDialog(null, " Valor total a pagar: R$" + valor_total);
+			
 			}
 		});
 		btncalcular.setFont(new Font("Arial", Font.BOLD, 12));
-		btncalcular.setBounds(158, 163, 114, 27);
+		btncalcular.setBounds(167, 149, 105, 29);
 		contentPane.add(btncalcular);
 		
-		
-		
-		btnlimpar = new JButton("LIMPAR");
+		JButton btnlimpar = new JButton("LIMPAR");
 		btnlimpar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				txtpreco.setText("");
+				
+				txtpeso.setText("");
 				txtvalor.setText("");
 			}
 		});
 		btnlimpar.setFont(new Font("Arial", Font.BOLD, 12));
-		btnlimpar.setBounds(158, 205, 114, 27);
+		btnlimpar.setBounds(167, 188, 105, 29);
 		contentPane.add(btnlimpar);
 		
-		btnfechar = new JButton("FECHAR");
-		btnfechar.addActionListener(new ActionListener() {
+		JButton btnfehar = new JButton("FECHAR");
+		btnfehar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				setVisible(false);
 			}
 		});
-		btnfechar.setFont(new Font("Arial", Font.BOLD, 12));
-		btnfechar.setBounds(341, 226, 85, 27);
-		contentPane.add(btnfechar);
+		btnfehar.setFont(new Font("Arial", Font.BOLD, 12));
+		btnfehar.setBounds(321, 224, 105, 29);
+		contentPane.add(btnfehar);
 	}
-
 }
