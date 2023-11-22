@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -229,7 +229,7 @@ public class roteiro_pratico extends JFrame {
 		lbl_total_oleo.setFont(new Font("Arial", Font.BOLD, 11));
 		
 		JLabel lbl_vazio_oleo = new JLabel("......................................");
-		lbl_vazio_oleo.setBounds(47, 48, 45, 13);
+		lbl_vazio_oleo.setBounds(40, 45, 57, 13);
 		painel_total_oleo.add(lbl_vazio_oleo);
 		
 		JLabel lblquantidade = new JLabel("Quantidade");
@@ -278,7 +278,7 @@ public class roteiro_pratico extends JFrame {
 		txt_quantidade_litro.setColumns(10);
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Formad de Pagamento", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Forma de Pagamento", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		OleoDisel.add(panel, "cell 4 2,grow");
 		panel.setLayout(null);
 		
@@ -348,18 +348,36 @@ public class roteiro_pratico extends JFrame {
 		        Double preco1L1 = Double.valueOf(preco1L);
 
 		        String quantidade500ml = txtQuantidade500ml.getText();
-		        int quantidade500ml1 = Integer.valueOf(quantidade500ml);
+		        Double quantidade500ml1 = Double.valueOf(quantidade500ml);
 
 		        String quantidade1L = txtQuantidade1L.getText();
-		        int quantidade1L1 = Integer.valueOf(quantidade1L);
+		        Double quantidade1L1 = Double.valueOf(quantidade1L);
 
-		        double total_oleo_motor = calc.calculo_oleo_motor(preco500ml1, preco1L1, quantidade500ml1, quantidade1L1);
-		        double total_oleo_motor1 = calc.calculo_oleo_motor(preco500ml1, preco1L1, quantidade500ml1, quantidade1L1);
-		        double total_oleo_motor2 = calc.calculo_oleo_motor(preco500ml1, preco1L1, quantidade500ml1, quantidade1L1);
+		        double total_oleo_motor_500ml = calc.calculo_oleo_motor_500ml(preco500ml1,quantidade500ml1);
+		        double total_oleo_motor_1l = calc.calculo_oleo_motor_1l(preco1L1,quantidade1L1);
+		        double total_oleo_motor = calc.calculo_total_oleo_motor(total_oleo_motor_500ml, total_oleo_motor_1l);
 		        
-		        lbl_valor_pagar_500ml.setText("R$ " + total_oleo_motor1 + "");
-		        lbl_valor_pagar_1L.setText("R$ " + total_oleo_motor2 + "");
+		        lbl_valor_pagar_500ml.setText("R$ " + total_oleo_motor_500ml + "");
+		        lbl_valor_pagar_1L.setText("R$ " + total_oleo_motor_1l + "");
 		        lbl_vazio_oleo.setText("R$ " + total_oleo_motor + "");
+		        
+		        double valor_desconto = calc.calculo_desconto(total_pagar_disel, total_oleo_motor);
+		        double valor_prazo = calc.calculo_prazo(total_pagar_disel, total_oleo_motor);
+		        double valor_atrasado = calc.calculo_atraso(total_pagar_disel, total_oleo_motor, valor_prazo );
+		        
+		        String dia = txtdia.getText();
+		        int diaI = Integer.valueOf(dia);
+		        
+		        if(rdbtn_vista.isSelected()) {
+		        	 lbl_vazio_total.setText("R$" + valor_desconto );
+		        	 //JOptionPane.showMessageDialog(null,"R$" + valor_desconto );
+		        }else if(rdbtn_prazo.isSelected()) {
+		        	if(diaI > 30){
+	        	lbl_vazio_total.setText("R$" + valor_atrasado );
+		        } else if(diaI <= 30){
+		        lbl_vazio_total.setText("R$" + valor_prazo );
+		        }
+		       }
 			}
 			
 		});
@@ -380,6 +398,11 @@ public class roteiro_pratico extends JFrame {
 				txtQuantidade500ml.setText("");
 				txtQuantidade1L.setText("");
 				txtdia.setText("");
+				lbl_valor_pagar_500ml.setText("");
+				lbl_valor_pagar_1L.setText("");
+				lbl_vazio_oleo.setText("");
+				lbl_resultado_combustivel.setText("");
+				lbl_vazio_total.setText("");
 				
 			}
 			
